@@ -1,18 +1,14 @@
-Alright, let's get that README updated with all the new details, including the API key authentication and the `requirements.txt` file.
-
----
-
 # Elasticsearch Bulk Host Indexer
 
-This Python script offers a robust and flexible way to bulk index host-related documents into an Elasticsearch index. It's designed to read a list of hostnames from a text file and apply a common set of document fields (read from a JSON file) to each. The script uses the hostname as the document's unique ID and authenticates with Elasticsearch using an API key.
+This Python script offers a robust and flexible way to create sdp_amdb records in the sdp_amdb index. It is harcoded to index into our CCS Elasticsearch cluster. It's designed to read a list of hostnames from a text file, authenticate to Elasticsearch with an API key and apply a common set of fields (read from a JSON file) to each record. The script uses the hostname as the document id.
 
 ## Features
 
 * **Configurable Elasticsearch Connection:** Easily set your Elasticsearch host.
 * **External Host List:** Reads hostnames from a simple text file (`hostnames.txt`), making it easy to manage your host inventory.
-* **External Base Document Fields:** Defines common document fields in a JSON file (`base_fields.json`), allowing for easy updates to your schema without touching the code.
+* **External Base Document Fields:** Defines common document fields in a JSON file (`base_fields.json`), allowing for easy updates to the schema without touching the code.
 * **API Key Authentication:** Securely connects to Elasticsearch using an API key (read from `es_auth.json`).
-* **Efficient Bulk Indexing:** Utilizes Elasticsearch's `_bulk` API via the `elasticsearch-py` client's helper for optimal performance.
+* **Efficient Bulk Indexing:** Utilizes Elasticsearch's `_bulk` API.
 * **Dependency Management:** Includes a `requirements.txt` file for easy setup of the Python environment.
 * **Error Handling:** Provides basic error handling for file operations and Elasticsearch connection.
 
@@ -42,8 +38,7 @@ Before running the script, make sure you have:
 
     **`hostnames.txt` example:**
     ```
-    ES01-ESXCB300-DS04
-    ES02-WEBA100-SQL01
+    CS01-10PRODPY21
     PROD-WEB-001
     TEST-DB-002
     ```
@@ -57,9 +52,7 @@ Before running the script, make sure you have:
       "group": ["11115"],
       "app_code": "",
       "alert_status": "enabled",
-      "type": "datastore",
-      "environment": "development",
-      "region": "us-east-1"
+      "type": "datastore"
     }
     ```
     **Important:** Ensure your JSON is valid. Keys and string values must be enclosed in double quotes.
@@ -74,14 +67,6 @@ Before running the script, make sure you have:
       "api_key_secret": "YOUR_ELASTICSEARCH_API_KEY_SECRET_HERE"
     }
     ```
-    **IMPORTANT SECURITY NOTE:**
-    * **NEVER commit `es_auth.json` (or any file containing secrets) to your version control system (like Git)!**
-    * Add `es_auth.json` to your `.gitignore` file immediately:
-        ```
-        # .gitignore
-        es_auth.json
-        ```
-    * For production environments, consider more robust secret management solutions (e.g., environment variables, Kubernetes Secrets, HashiCorp Vault).
 
 5.  **Configure Script Variables:**
     Open `index_hosts.py` and adjust the following variables at the top of the script as needed:
@@ -108,11 +93,7 @@ The script will:
 2.  Read the hostnames from `hostnames.txt`.
 3.  Read the base document fields from `base_fields.json`.
 4.  Construct a unique document for each hostname by combining the hostname with the base fields.
-5.  Perform a bulk index operation, using each hostname as the document's `_id` in the specified Elasticsearch index.
+5.  Perform a bulk index operation, using each hostname as the document's `_id` in the specified sdp_amdb index.
 6.  Report on the success and failure counts of the indexed documents.
 
 ---
-
-### Need to expand the functionality or tailor it further?
-
-Feel free to open an issue or suggest an improvement if you have specific features in mind!
