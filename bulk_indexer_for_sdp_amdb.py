@@ -2,13 +2,14 @@ from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
 import copy
 import os
-import json # Import the json module to read JSON files
+import json
 
 # --- Configuration ---
 ES_HOST = "http://localhost:9200" # Replace with your Elasticsearch host and port
 ES_INDEX = "sdp_amdb"
-HOSTNAMES_FILE = "hostnames.txt"   # Name of the file containing hostnames
-BASE_FIELDS_FILE = "base_fields.json" # Name of the file containing base document fields
+HOSTNAMES_FILE = "hostnames.txt"
+BASE_FIELDS_FILE = "base_fields.json"
+ES_AUTH_FILE = "es_auth.json" # New: File containing API Key ID and Secret
 
 # --- Helper Function to Read Any JSON File ---
 def read_json_file(filename):
@@ -67,7 +68,6 @@ def create_documents_from_hostnames(es_client, index_name, hostnames, base_field
         return
 
     for hostname in hostnames:
-        # Create a deep copy of the base fields to avoid modifying the original
         doc_source = copy.deepcopy(base_fields)
         doc_source["hostname"] = hostname # Add the unique hostname to the document
 
@@ -96,12 +96,24 @@ def create_documents_from_hostnames(es_client, index_name, hostnames, base_field
 # --- Main execution ---
 if __name__ == "__main__":
     try:
-        # Initialize the Elasticsearch client
-        es = Elasticsearch(ES_HOST)
+        # Read authentication details from es_auth.json
+        auth_config = read_json_file(ES_AUTH_FILE)
+        api_key_id = auth_config.get("api_key_id")
+        api_key_secret = auth_config.get("api_key_secret")
 
-        # Verify connection
+        if not api_key_id or not api_key_secret:
+            raise ValueError(f"API key ID ('api_key_id') or secret ('api_key_secret') missing in '{ES_AUTH_FILE}'.")
+
+        # Initialize the Elasticsearch client with API key authentication
+        # For cloud deployments, ES_HOST usually starts with 'https://'
+        es = Elasticsearch(
+            ES_HOST,
+            api_key=(api_key_id, api_key_secret) # Pass the API key tuple here
+        )
+
+        # Verify connection (will use API key for this)
         if not es.ping():
-            raise ValueError("Connection to Elasticsearch failed!")
+            raise ValueError("Connection to Elasticsearch failed! Check host, API key, and network.")
         print(f"Successfully connected to Elasticsearch at {ES_HOST}")
 
         # Read hostnames from the file
