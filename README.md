@@ -1,0 +1,1 @@
+# bulk_indexer_for_sdp_amdb
