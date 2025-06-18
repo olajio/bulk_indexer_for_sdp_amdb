@@ -5,13 +5,13 @@ import os
 import json
 
 # --- Configuration ---
-ES_HOST = "https://xxxxxxxxxxxxxx.us-east-1.aws.found.io" # Replace with your Elasticsearch endpoint
-ES_INDEX = "sdp_amdb"
+ES_HOST = "https://xxxxxxxxxxxx.us-east-1.aws.found.io" # Replace with your Elasticsearch endpoint
+ES_INDEX = "sdp_amdb"    # Replace with the name of your index
 HOSTNAMES_FILE = "hostnames.txt"
 BASE_FIELDS_FILE = "base_fields.json"
-ES_AUTH_FILE = "es_auth.json" # New: File containing API Key ID and Secret
+ES_AUTH_FILE = "es_auth.json" # File containing API Key ID and Secret
 
-# --- Helper Function to Read Any JSON File ---
+# Read Any JSON File
 def read_json_file(filename):
     """Reads and parses a JSON file into a Python dictionary."""
     script_dir = os.path.dirname(__file__)
@@ -34,7 +34,7 @@ def read_json_file(filename):
         print(f"An unexpected error occurred while reading '{file_path}': {e}")
         exit(1)
 
-# --- Function to read hostnames from file ---
+# Read hostnames from file
 def read_hostnames_from_file(filename):
     hostnames = []
     script_dir = os.path.dirname(__file__)
@@ -56,7 +56,7 @@ def read_hostnames_from_file(filename):
         exit(1)
     return hostnames
 
-# --- Script Logic (Remains largely the same) ---
+# Script Logic (Remains largely the same)
 def create_documents_from_hostnames(es_client, index_name, hostnames, base_fields):
     """
     Generates and indexes documents for a list of hostnames,
@@ -105,13 +105,12 @@ if __name__ == "__main__":
             raise ValueError(f"API key ID ('api_key_id') or secret ('api_key_secret') missing in '{ES_AUTH_FILE}'.")
 
         # Initialize the Elasticsearch client with API key authentication
-        # For cloud deployments, ES_HOST usually starts with 'https://'
         es = Elasticsearch(
             ES_HOST,
             api_key=(api_key_secret) # Pass the API key tuple here
         )
 
-        # Verify connection (will use API key for this)
+        # Verify connection
         if not es.ping():
             raise ValueError("Connection to Elasticsearch failed! Check host, API key, and network.")
         print(f"Successfully connected to Elasticsearch at {ES_HOST}")
