@@ -5,7 +5,7 @@ import os
 import json
 
 # --- Configuration ---
-ES_HOST = "https://de26459b90754aceb3234fe7969cb1ee.us-east-1.aws.found.io" # CCS cluster Elasticsearch endpoint
+ES_HOST = "https://xxxxxxxxxxxxxx.us-east-1.aws.found.io" # Replace with your Elasticsearch endpoint
 ES_INDEX = "sdp_amdb"
 HOSTNAMES_FILE = "hostnames.txt"
 BASE_FIELDS_FILE = "base_fields.json"
