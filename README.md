@@ -1,6 +1,6 @@
 # Elasticsearch Bulk Hosts Indexer to sdp_amdb
 
-This Python script offers a robust and flexible way to create sdp_amdb records in the sdp_amdb index. It is harcoded to index into our CCS Elasticsearch cluster. It's designed to read a list of hostnames from a text file, authenticate to Elasticsearch with an API key and apply a common set of fields (read from a JSON file) to each record. The script uses the hostname as the document id.
+This Python script offers a robust and flexible way to create sdp_amdb records in the sdp_amdb index. It is harcoded to index into an CCS Elasticsearch cluster, but the Elasticsearch endpoint can be easily chnaged to apply this script to any cluster. It's designed to read a list of hostnames from a text file, authenticate to Elasticsearch with an API key and apply a common set of fields (read from a JSON file) to each record. The script uses the hostname as the document id.
 
 ## Features
 
