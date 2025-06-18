@@ -5,7 +5,7 @@ import os
 import json
 
 # --- Configuration ---
-ES_HOST = "http://localhost:9200" # Replace with your Elasticsearch host and port
+ES_HOST = "https://de26459b90754aceb3234fe7969cb1ee.us-east-1.aws.found.io" # CCS cluster Elasticsearch endpoint
 ES_INDEX = "sdp_amdb"
 HOSTNAMES_FILE = "hostnames.txt"
 BASE_FIELDS_FILE = "base_fields.json"
@@ -108,7 +108,7 @@ if __name__ == "__main__":
         # For cloud deployments, ES_HOST usually starts with 'https://'
         es = Elasticsearch(
             ES_HOST,
-            api_key=(api_key_id, api_key_secret) # Pass the API key tuple here
+            api_key=(api_key_secret) # Pass the API key tuple here
         )
 
         # Verify connection (will use API key for this)
