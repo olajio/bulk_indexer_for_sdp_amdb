@@ -87,7 +87,14 @@ Once you've completed the setup and configuration steps, run the script from you
 python index_hosts.py
 ```
 
-The script will:
+## Sample Output
+
+If the script runs succesfully, the output would lookmlike the following image:
+
+<img width="1063" alt="image" src="https://github.com/user-attachments/assets/672dfced-bf48-492a-b404-889538a4f5ab" />
+
+
+In summary, the script will:
 
 1.  Connect to your Elasticsearch cluster using the provided API key.
 2.  Read the hostnames from `hostnames.txt`.
