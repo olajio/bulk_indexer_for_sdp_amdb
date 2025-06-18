@@ -38,9 +38,9 @@ Before running the script, make sure you have:
 
     **`hostnames.txt` example:**
     ```
-    CS01-10PRODPY21
-    PROD-WEB-001
-    TEST-DB-002
+    HOSTNAME1
+    HOSTNAME2
+    HOSTNAME3
     ```
 
 3.  **Create `base_fields.json`:**
