@@ -11,7 +11,7 @@ HOSTNAMES_FILE = "hostnames.txt"
 BASE_FIELDS_FILE = "base_fields.json"
 ES_AUTH_FILE = "es_auth.json" # File containing API Key ID and Secret
 
-# Read Any JSON File
+# Read JSON File
 def read_json_file(filename):
     """Reads and parses a JSON file into a Python dictionary."""
     script_dir = os.path.dirname(__file__)
@@ -56,7 +56,7 @@ def read_hostnames_from_file(filename):
         exit(1)
     return hostnames
 
-# Script Logic (Remains largely the same)
+# Script Logic
 def create_documents_from_hostnames(es_client, index_name, hostnames, base_fields):
     """
     Generates and indexes documents for a list of hostnames,
