@@ -90,7 +90,7 @@ python index_hosts.py
 
 If the script runs succesfully, the output would lookmlike the following image:
 
-<img width="960" alt="image" src="https://github.com/user-attachments/assets/498c6d9a-7a89-4a7b-b798-f8ef9c1009fc" />
+<img width="960" alt="Screenshot 2025-06-20 at 12 29 58 PM" src="https://github.com/user-attachments/assets/275c83bc-5597-4956-8510-45bd495da429" />
 
 
 
