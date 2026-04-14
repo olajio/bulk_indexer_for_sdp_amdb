@@ -2,7 +2,6 @@
   "group": ["11115"],
   "app_code": "",
   "alert_status": "enabled",
-  "type": "datastore",
-  "client": "Shared services",
+  "type": "client",
   "record.modified_by": "sdp_amdb_add_bulk_hosts_script"
 }
